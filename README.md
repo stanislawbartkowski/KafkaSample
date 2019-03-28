@@ -3,7 +3,7 @@
 Very simple Java client to verify Kafka connectivity in Hadoop/HDP environment. Three functions and corresponding bash scripts:
 * list.sh List topics 
 * produce.sh Produce stream to Kafka topic.
-* consume.sh Consume Kafka sctream.
+* consume.sh Consume Kafka stream.
 
 # Configuration
 Adjust config files according to your environment.
