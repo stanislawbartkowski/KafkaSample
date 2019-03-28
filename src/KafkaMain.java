@@ -38,8 +38,8 @@ public class KafkaMain {
 		try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props)) {
 			P("Created, now pull the topic list");
 			topics = consumer.listTopics();
+			P("Print list of topics recevied.");
 		}
-		P("Print list of topics recevied.");
 		topics.forEach((k, v) -> System.out.println("Topic : " + k + " PartitionInfo : " + v));
 	}
 
