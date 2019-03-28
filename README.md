@@ -34,7 +34,17 @@ Verify the stream by *consume* (look below) or by standard *kafka-console-consum
 Start producing messages by *produce* (look above) or by standard *kafka-console-producer.sh*
 > /usr/hdp/current/kafka-broker/bin/kafka-console-producer.sh  --broker-list mdp1.sb.com:6667 --topic test_topic
 
-
+# Kerberos
+**sh/env.rc** Uncomment and modify the *KERBEROS* variable (sh/env.rc)
+```
+KERBEROS=-Djava.security.auth.login.config=/etc/kafka/2.6.5.1050-37/0/kafka_client_jaas.conf
+export JAVAOPTS="$KERBEROS -cp KafkaSample.jar:/usr/hdp/current/kafka-broker/libs/*  KafkaMain kafka.properties" 
+```
+**sh/kafka.properties** Uncomment:
+```
+security.protocol=SASL_PLAINTEXT
+sasl.kerberos.service.name=kafka
+```
 
 
 
