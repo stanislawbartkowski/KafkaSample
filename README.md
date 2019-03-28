@@ -6,6 +6,9 @@ Very simple Java client to verify Kafka connectivity in Hadoop/HDP environment. 
 * consume.sh Consume Kafka stream.
 
 # Configuration
+>cd sh<br>
+>  cp templates/* .<br>
+
 Adjust config files according to your environment.
 
 https://github.com/stanislawbartkowski/KafkaSample/blob/master/sh/templates/kafka.properties<br>
