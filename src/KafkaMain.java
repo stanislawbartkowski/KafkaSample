@@ -34,9 +34,12 @@ public class KafkaMain {
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
+		P("I'm creating KafkaConsumer.");
 		try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props)) {
+			P("Created, now pull the topic list");
 			topics = consumer.listTopics();
 		}
+		P("Print list of topics recevied.");
 		topics.forEach((k, v) -> System.out.println("Topic : " + k + " PartitionInfo : " + v));
 	}
 
