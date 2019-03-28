@@ -1,0 +1,3 @@
+bootstrap.servers=mdp1.sb.com:6667
+group.id=test-consumer-group
+topic=test_topic
