@@ -25,11 +25,9 @@
         status="integration">
 	</info>
 	<dependencies>
-	
-	<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
-<dependency org="org.apache.kafka" name="kafka_2.11" rev="0.10.0.0"/> 
 
-
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+<dependency org="org.slf4j" name="slf4j-api" rev="1.7.21"/> 
 	
 	</dependencies>
 </ivy-module>

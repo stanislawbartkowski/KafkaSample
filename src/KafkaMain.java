@@ -1,26 +1,33 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.PartitionInfo;
+import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+
+import org.slf4j.impl.*;
 
 public class KafkaMain {
 
 	private static final String LIST = "list";
 	private static final String PRODUCE = "produce";
 	private static final String TOPIC = "topic";
+	private static final String CONSUME = "consume";
 
 	private static void listTopics(Properties props) {
 		Map<String, List<PartitionInfo>> topics;
@@ -34,7 +41,7 @@ public class KafkaMain {
 	}
 
 	private static void produceLines(Properties props, String topic) throws InterruptedException, ExecutionException {
-		P("I'm producing lines unless stopped by CTRL/C ...");
+		P("I'm producing lines to topic " + topic + " unless stopped by CTRL/C ...");
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
@@ -50,6 +57,21 @@ public class KafkaMain {
 		}
 	}
 
+	private static void consumeLines(Properties props, String topic) throws InterruptedException, ExecutionException {
+		P("I'm consuming lines from topic " + topic + " unless stopped by CTRL/C ...");
+		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+		try (Consumer<Long, String> consumer = new KafkaConsumer<>(props)) {
+			consumer.subscribe(Collections.singletonList(topic));
+			while (true) {
+				ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
+				consumerRecords.forEach(record -> {
+					System.out.println(record.key() + " " + record.value());
+				});
+			}
+		}
+	}
+
 	private static void P(String s) {
 		System.out.println(s);
 	}
@@ -57,7 +79,7 @@ public class KafkaMain {
 	private static void printHelp() {
 		P("Parameters: <config file> <action>");
 		P("  config file : path to property file");
-		P("  action: " + LIST + ", " + PRODUCE + ", consume");
+		P("  action: " + LIST + ", " + PRODUCE + " ,and " + CONSUME);
 		P("Example:");
 		P(" ./kafka.properties " + LIST);
 		P(" ./kafka.properties " + PRODUCE);
@@ -76,6 +98,8 @@ public class KafkaMain {
 			listTopics(props);
 		else if (PRODUCE.equals(args[1]))
 			produceLines(props, topic);
+		else if (CONSUME.equals(args[1]))
+			consumeLines(props, topic);
 		else
 			printHelp();
 	}
