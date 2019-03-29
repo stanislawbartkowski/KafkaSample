@@ -20,14 +20,13 @@ import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import org.slf4j.impl.*;
-
 public class KafkaMain {
 
 	private static final String LIST = "list";
 	private static final String PRODUCE = "produce";
 	private static final String TOPIC = "topic";
 	private static final String CONSUME = "consume";
+	
 
 	private static void listTopics(Properties props) {
 		Map<String, List<PartitionInfo>> topics;
@@ -36,9 +35,9 @@ public class KafkaMain {
 
 		P("I'm creating KafkaConsumer.");
 		try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props)) {
-			P("Created, now pull the topic list");
+			P("Created, now pull the topic list.");
 			topics = consumer.listTopics();
-			P("Print list of topics recevied.");
+			P("Print list of topics received.");
 		}
 		topics.forEach((k, v) -> System.out.println("Topic : " + k + " PartitionInfo : " + v));
 	}
