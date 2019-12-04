@@ -44,9 +44,10 @@ public class KafkaMain {
 		try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props)) {
 			P("Created, now pull the topic list.");
 			topics = consumer.listTopics();
-			P("Print list of topics received.");
+			P("Print list of topics received. Number of topics: " + topics.size());
 		}
 		topics.forEach((k, v) -> System.out.println("Topic : " + k + " PartitionInfo : " + v));
+		P("End of list.");
 	}
 
 	private static void produceLines(Properties props, String topic) throws InterruptedException, ExecutionException {

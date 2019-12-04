@@ -27,7 +27,7 @@
 	<dependencies>
 	
 	<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
-<dependency org="org.apache.kafka" name="kafka_2.11" rev="0.10.0.0"/> 
+    <dependency org="org.apache.kafka" name="kafka_2.11" rev="0.10.0.0"/> 
 
 
 	
