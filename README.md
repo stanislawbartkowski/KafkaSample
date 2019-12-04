@@ -43,6 +43,7 @@ Before running the test, the proper Kerberos ticket should be obtained.<br>
 For Kerberos troubleshooting, modify the KERBEROS variable.
 * KERBEROS="-Djava.security.auth.login.config=/etc/kafka/3.1.0.0-78/0/kafka_client_jaas.conf -Dsun.security.krb5.debug=true"
 <br>
+
 ```
 KERBEROS=-Djava.security.auth.login.config=/etc/kafka/2.6.5.1050-37/0/kafka_client_jaas.conf
 export JAVAOPTS="$KERBEROS -cp KafkaSample.jar:/usr/hdp/current/kafka-broker/libs/*  KafkaMain kafka.properties" 
