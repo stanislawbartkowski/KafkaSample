@@ -35,6 +35,9 @@ Start producing messages by *produce* (look above) or by standard *kafka-console
 > /usr/hdp/current/kafka-broker/bin/kafka-console-producer.sh  --broker-list mdp1.sb.com:6667 --topic test_topic
 
 # Kerberos
+In Kerberized environment, Kafka ACL security is enabled. The topic *test_topic* should be created beforehand by *kafka* admin and the Kerberos user should be granted read/write authority for this topic. It can be done in friendly way by using Ranger UI.<br>
+
+
 **sh/env.rc** Uncomment and modify the *KERBEROS* variable.
 
 Modify *kafka_client_jaas.conf* accordingly. In HDP 3.1 it could be: /etc/kafka/3.1.0.0-78/0/kafka_client_jaas.conf<br>
