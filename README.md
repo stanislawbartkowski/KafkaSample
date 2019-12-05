@@ -40,7 +40,7 @@ In Kerberized environment, Kafka ACL security is enabled. The topic *test_topic*
 
 **sh/env.rc** Uncomment and modify the *KERBEROS* variable.
 
-Modify *kafka_client_jaas.conf* accordingly. In HDP 3.1 it could be: /etc/kafka/3.1.0.0-78/0/kafka_client_jaas.conf<br>
+Modify *kafka_client_jaas.conf* accordingly. In HDP 3.1 it could be */etc/kafka/3.1.0.0-78/0/kafka_client_jaas.conf* or generic */etc/kafka/conf/kafka_client_jaas.conf* <br>
 Before running the test, the proper Kerberos ticket should be obtained.<br>
 
 For Kerberos troubleshooting, add *-Dsun.security.krb5.debug=true* parameter to java launch.
